@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.number26.bean.TransactionStatusResult;
 import com.number26.bean.TransactionSumResult;
 import com.number26.entity.Transaction;
+import com.number26.exception.IDExistException;
 import com.number26.resource.TransactionResource;
 import com.number26.resource.TransactionResourceAssembler;
 
@@ -94,7 +95,7 @@ public class TransactionController extends BaseApiContoller{
 			throw new Exception("Transaction ID can not be 0!");
 		}
 		if (transactions.containsKey(transaction.getId())) {
-			throw new Exception("Transaction with ID: " + transaction.getId() + " already exists!");
+			throw new IDExistException("Transaction with ID: " + transaction.getId() + " already exists!");
 		}
 		if (transaction.getParentId() != 0) {
 			if (!transactions.containsKey(transaction.getParentId())) {
